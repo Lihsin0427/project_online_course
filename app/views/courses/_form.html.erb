@@ -1,0 +1,42 @@
+<%= form_for(@course) do |form| %>
+
+  <div class="fields">
+    <%= form.label :topic, '課程主題' %>
+    <%= form.text_field :topic %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :price, '價格' %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :currency, '幣別' %>
+    <%= form.text_field :currency %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :category, '類型' %>
+    <%= form.text_field :category %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :url, '設定URL' %>
+    <%= form.text_field :url %>
+  </div>
+  
+
+  <div class="fields">
+    <%= form.label :content, '課程描述' %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :validity_period, '課程效期(天)' %>
+    <%= form.number_field :validity_period %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '新增課程' %>
+  </div>
+<% end %>

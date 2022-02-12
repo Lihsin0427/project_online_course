@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_02_12_142109) do
     t.boolean "is_available"
     t.string "url"
     t.text "content"
+    t.integer "validity_period"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -8,6 +8,7 @@ class CreateCourses < ActiveRecord::Migration[6.1]
       t.boolean :is_available
       t.string :url
       t.text :content
+      t.integer :validity_period
 
       t.timestamps
     end

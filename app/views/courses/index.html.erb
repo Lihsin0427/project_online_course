@@ -1,3 +1,28 @@
 <h1>課程列表</h1>
 
+<table>
+<tr>
+  <td>課程主題</td>
+  <td>課程價格</td>
+  <td>幣別</td>
+  <td>課程類型</td>
+  <td>課程效期</td>
+  <td>上架中</td>
+  <td>動作</td>
+</tr>
+<% @courses.each do |course| %>
+<tr>
+  <td><%= link_to course.topic, course_path(course.id) %></td>
+  <td><%= course.price %></td>
+  <td><%= course.currency  %></td>
+  <td><%= course.category %></td>
+  <td><%= course.validity_period %>天</td>
+  <td><%= course.is_available %></td>
+  <td><%= link_to '更新', edit_course_path(course.id) %></td>
+  <td><%= link_to '刪除', course_path(course.id), method: 'delete', data: {confirm:'課程即將被刪除。確定嗎'} %></td>
+</tr>
+<% end %>
+</table>
+
+
 <%= link_to "新增課程", new_course_path %>

@@ -1,8 +1,11 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:edit, :update, :destroy]
+  before_action :set_course, only: [:edit, :update, :destroy, :show]
 
   def index
     @courses = Course.all
+  end
+
+  def show
   end
 
   def new

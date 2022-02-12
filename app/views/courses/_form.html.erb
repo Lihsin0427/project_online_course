@@ -36,7 +36,13 @@
     <%= form.number_field :validity_period %>
   </div>
 
+  <div class="fields">
+    <%= form.label :is_available, '是否上架' %>
+    <%= form.select :is_available, options_for_select([false, true]) %>
+  </div>
+
+
   <div class="actions">
-    <%= form.submit '新增課程' %>
+    <%= form.submit  btn_label %>
   </div>
 <% end %>

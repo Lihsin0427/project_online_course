@@ -1,7 +1,7 @@
 module CoursesHelper
 
-  def display_course_currency(c)
-    case c
+  def display_course_currency(currency)
+    case currency
       when "TWD"
         "新台幣(TWD)"
       when "USD"

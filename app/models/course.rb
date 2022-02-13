@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  belongs_to :category, :optional => true
+
   # validation
   validates :topic, :category, :content, presence: true
 

@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:edit, :update, :destroy, :show]
 
   def index
-    @courses = Course.all
+    @courses = Course.includes(:category)
   end
 
   def show
@@ -41,10 +41,10 @@ class CoursesController < ApplicationController
 
   private
   def set_course
-    @course = Course.find_by!(url: params[:url])
+    @course = Course.includes(:category).find_by!(url: params[:url])
   end
 
   def course_params
-    params.require(:course).permit(:topic, :price, :currency, :category, :is_available, :url, :content, :validity_period)
+    params.require(:course).permit(:topic, :price, :currency, :is_available, :url, :content, :validity_period, :category_id)
   end
 end

@@ -2,7 +2,7 @@ class Course < ApplicationRecord
   belongs_to :category, :optional => true
 
   # validation
-  validates :topic, :category, :content, presence: true
+  validates :topic, :content, :category_id, presence: true
 
   validates :price, presence: true, numericality: {
     greater_than_or_equal_to: 0

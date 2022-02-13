@@ -1,7 +1,7 @@
   <h1><%= @course.topic %></h1>
 
   <ul>
-    <li>課程類別：<%= @course.category %></li>
+    <li>課程類別：<%= @course.category.name %></li>
     <li>課程描述：<%= @course.content %></li>
     <li>課程售價：<%= @course.price %><%= @course.currency %></li>
     <li>課程狀態：<%= @course.is_available %></li>

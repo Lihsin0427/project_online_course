@@ -1,0 +1,17 @@
+<h1>類型列表</h1>
+
+<table>
+<tr>
+  <td>類型</td>
+  <td>動作</td>
+</tr>
+<% @categories.each do |category| %>
+<tr>
+  <td><%= category.name %></td>
+  <td><%= link_to '編輯', edit_category_path(category.id) %></td>
+  <td><%= link_to '刪除', category_path(category.id), method: 'delete', data: {confirm:"類型 #{category.name} 即將被刪除。所有#{category.name}類型的課程將會變成沒有類型，確定嗎？"} %></td>
+</tr>
+<% end %>
+</table>
+
+<%= link_to "新增類型", new_category_path %>

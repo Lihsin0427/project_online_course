@@ -27,6 +27,7 @@
   <div class="fields">
     <%= form.label :category_id, '類型' %>
     <%= form.select :category_id, Category.all.map{ |c| [c.name, c.id] }, include_blank: true %>
+    <%= link_to "編輯類型", categories_path %>
   </div>
 
   <div class="fields">

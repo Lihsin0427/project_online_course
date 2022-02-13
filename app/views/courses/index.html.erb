@@ -15,11 +15,11 @@
   <td><%= link_to course.topic, course_path(course.url) %></td>
   <td><%= course.price %></td>
   <td><%= display_course_currency(course.currency) %></td>
-  <td><%= course.category.name %></td>
+  <td><%= course.category.try(:name) %></td>
   <td><%= course.validity_period %>天</td>
   <td><%= course.is_available %></td>
-  <td><%= link_to '更新', edit_course_path(course.url) %></td>
-  <td><%= link_to '刪除', course_path(course.url), method: 'delete', data: {confirm:'課程即將被刪除。確定嗎'} %></td>
+  <td><%= link_to '編輯', edit_course_path(course.url) %></td>
+  <td><%= link_to '刪除', course_path(course.url), method: 'delete', data: {confirm:"課程 #{course.topic} 即將被刪除。確定嗎?"} %></td>
 </tr>
 <% end %>
 </table>

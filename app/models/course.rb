@@ -5,6 +5,7 @@ class Course < ApplicationRecord
   validates :price, presence: true, numericality: {
     greater_than_or_equal_to: 0
   }
+  validate :price_is_valid_decimal_precision
 
   validates :validity_period, presence: true, numericality: {
     greater_than_or_equal_to: 1,
@@ -13,10 +14,22 @@ class Course < ApplicationRecord
   }
   validates :is_available, inclusion: { in: [true, false] }, exclusion: { in: [nil] }
 
-  validates :url, presence: true, uniqueness: true, format: { with: /\A[a-z0-9\-]+\z/,
-  message: "限小寫英數字及橫線" }
+  validates :url, presence: true, uniqueness: true, format: {    
+    with: /\A[a-z0-9\-]+\z/,
+    message: "限小寫英數字及橫線" 
+  }
 
   def to_param
     url
   end
+
+  private
+  
+  def price_is_valid_decimal_precision 
+    # Make sure that the rounded value is the same as the non-rounded 
+    if price.to_f != price.to_f.round(2) 
+     errors.add(:price, " should only be two digits at most after the decimal point.") 
+    end 
+  end 
+
 end

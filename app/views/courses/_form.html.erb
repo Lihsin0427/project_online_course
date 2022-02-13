@@ -15,7 +15,8 @@
 
   <div class="fields">
     <%= form.label :price, '價格' %>
-    <%= form.number_field :price %>
+    <%= form.number_field :price, min:"0", step: ".01" %>
+    <p>價格取至小數點第二位</p>
   </div>
 
   <div class="fields">

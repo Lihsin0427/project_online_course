@@ -21,7 +21,7 @@
 
   <div class="fields">
     <%= form.label :currency, '幣別' %>
-    <%= form.text_field :currency %>
+    <%= form.select :currency, Course::CURRENCY.map{|c|[ display_course_currency(c), c] } %>
   </div>
 
   <div class="fields">

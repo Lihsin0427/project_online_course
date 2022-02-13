@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to category_path, notice: "類型更新成功!"
+      redirect_to categories_path, notice: "類型更新成功!"
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
 
-    redirect_to category_path, notice: "類型已刪除!"
+    redirect_to categories_path, notice: "類型已刪除!"
   end
 
   private

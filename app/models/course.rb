@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   # validation
-  validates :topic, :currency, :category, :url, :content,  presence: true
+  validates :topic, :currency, :category, :content, presence: true
 
   validates :price, presence: true, numericality: {
     greater_than_or_equal_to: 0
@@ -12,4 +12,11 @@ class Course < ApplicationRecord
     only_integer: true
   }
   validates :is_available, inclusion: { in: [true, false] }, exclusion: { in: [nil] }
+
+  validates :url, presence: true, uniqueness: true, format: { with: /\A[a-z0-9\-]+\z/,
+  message: "限小寫英數字及橫線" }
+
+  def to_param
+    url
+  end
 end

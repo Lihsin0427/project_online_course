@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
 
   private
   def set_course
-    @course = Course.find(params[:id])
+    @course = Course.find_by!(url: params[:url])
   end
 
   def course_params

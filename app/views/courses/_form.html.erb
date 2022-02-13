@@ -1,3 +1,11 @@
+<% if @course.errors.any? %>
+  <ul>
+  <% @course.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <%= form_for(@course) do |form| %>
 
   <div class="fields">
@@ -33,14 +41,13 @@
 
   <div class="fields">
     <%= form.label :validity_period, '課程效期(天)' %>
-    <%= form.number_field :validity_period %>
+    <%= form.select :validity_period, [*1..31], include_blank: true %>
   </div>
 
   <div class="fields">
     <%= form.label :is_available, '是否上架' %>
-    <%= form.select :is_available, options_for_select([false, true]) %>
+    <%= form.select :is_available, [true, false], include_blank: true %>
   </div>
-
 
   <div class="actions">
     <%= form.submit  btn_label %>

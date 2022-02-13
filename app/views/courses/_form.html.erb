@@ -46,7 +46,7 @@
 
   <div class="fields">
     <%= form.label :is_available, '是否上架' %>
-    <%= form.select :is_available, [true, false], include_blank: true %>
+    <%= form.select :is_available, [['上架', true], ['未上架', false]] %>
   </div>
 
   <div class="actions">

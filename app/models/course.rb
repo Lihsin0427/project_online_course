@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   # validation
-  validates :topic, :currency, :category, :url, :content, presence: true
+  validates :topic, :currency, :category, :url, :content,  presence: true
 
   validates :price, presence: true, numericality: {
     greater_than_or_equal_to: 0
@@ -11,4 +11,5 @@ class Course < ApplicationRecord
     less_than_or_equal_to: 31,
     only_integer: true
   }
+  validates :is_available, inclusion: { in: [true, false] }, exclusion: { in: [nil] }
 end

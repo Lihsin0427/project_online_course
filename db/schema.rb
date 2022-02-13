@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_12_142109) do
+ActiveRecord::Schema.define(version: 2022_02_13_080614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2022_02_12_142109) do
     t.decimal "price"
     t.string "currency"
     t.string "category"
-    t.boolean "is_available"
+    t.boolean "is_available", default: false
     t.string "url"
     t.text "content"
     t.integer "validity_period"

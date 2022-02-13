@@ -1,5 +1,9 @@
 module CoursesHelper
 
+  def diplay_is_available(course)
+    course.is_available ? "上架中" : "未上架"
+  end
+
   def display_course_currency(currency)
     case currency
       when "TWD"

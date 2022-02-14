@@ -1,4 +1,7 @@
 <h1>課程列表</h1>
+<% if current_user.try(:admin?) %>
+<%= link_to "新增課程", new_course_path %>
+<% end  %>
 
 <table>
 <tr>
@@ -8,7 +11,9 @@
   <td><%= link_to "課程類型", categories_path %></td>
   <td>課程效期</td>
   <td>上架中</td>
-  <td>動作</td>
+  <% if current_user.try(:admin?) %>
+    <td>管理員動作</td>
+  <% end  %>
 </tr>
 <% @courses.each do |course| %>
 <tr>
@@ -18,11 +23,10 @@
   <td><%= course.category.try(:name) %></td>
   <td><%= course.validity_period %>天</td>
   <td><%= diplay_is_available(course) %></td>
-  <td><%= link_to '編輯', edit_course_path(course.url) %></td>
-  <td><%= link_to '刪除', course_path(course.url), method: 'delete', data: {confirm:"課程 #{course.topic} 即將被刪除。確定嗎?"} %></td>
+  <% if current_user.try(:admin?) %>
+    <td><%= link_to '編輯', edit_course_path(course.url) %></td>
+    <td><%= link_to '刪除', course_path(course.url), method: 'delete', data: {confirm:"課程 #{course.topic} 即將被刪除。確定嗎?"} %></td>
+  <% end  %>
 </tr>
 <% end %>
 </table>
-
-
-<%= link_to "新增課程", new_course_path %>

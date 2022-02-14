@@ -1,0 +1,9 @@
+<h1>改變身份</h1>
+
+<% if current_user.admin? %>
+<p> 您現在的身份是管理員，可以對課程進行操作。</p>
+  <%= link_to '取消管理員身份', cancel_admin_admins_path, method: 'post' %>
+<% else %> 
+<p> 您現在的身份是一般的使用者。</p>
+  <%= link_to '我要成為管理員',  become_admin_admins_path, method: 'post' %>
+<% end  %>

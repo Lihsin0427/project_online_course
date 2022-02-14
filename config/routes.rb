@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   root "courses#index"
   resources :courses, param: :url
   resources :categories
+  resources :admins, path: "/427liHsinPractice", only: [:index] do
+    collection do
+      post :become_admin
+      post :cancel_admin
+    end
+  end
 end

@@ -1,0 +1,11 @@
+  <h1><%= @course.topic %></h1>
+
+  <ul>
+    <li>課程類別：<%= @course.category.try(:name) %></li>
+    <li>課程描述：<%= @course.content %></li>
+    <li>課程售價：<%= @course.price %><%= @course.currency %></li>
+    <li>課程狀態：<%= diplay_is_available(@course) %></li>
+    <li>課程效期：<%= @course.validity_period %>天</li>
+  </ul>
+
+<%= link_to "返回上頁", :back %>

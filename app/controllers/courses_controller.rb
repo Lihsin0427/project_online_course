@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:edit, :update, :destroy, :show]
 
   def index
-    @courses = Course.includes(:category)
+    @courses = Course.includes(:category).order(updated_at: :desc)
   end
 
   def show

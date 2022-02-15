@@ -10,4 +10,8 @@ Rails.application.routes.draw do
       post :cancel_admin
     end
   end
+
+  # 搭配gem Grape 實現 api
+  mount CourseStore::API => '/'
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_13_181125) do
+ActiveRecord::Schema.define(version: 2022_02_14_133811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,22 @@ ActiveRecord::Schema.define(version: 2022_02_13_181125) do
     t.index ["url"], name: "index_courses_on_url", unique: true
   end
 
+  create_table "purchase_records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
+    t.string "p_topic"
+    t.decimal "p_price"
+    t.string "p_currency"
+    t.string "p_category"
+    t.integer "p_validity_period"
+    t.date "purchase_date"
+    t.date "expiry_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_purchase_records_on_course_id"
+    t.index ["user_id"], name: "index_purchase_records_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,4 +65,6 @@ ActiveRecord::Schema.define(version: 2022_02_13_181125) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "purchase_records", "courses"
+  add_foreign_key "purchase_records", "users"
 end

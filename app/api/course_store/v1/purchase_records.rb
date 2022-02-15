@@ -5,6 +5,33 @@ module CourseStore
       format :json
       prefix :api
 
+      helpers do
+
+        def warden
+          env['warden']
+        end
+
+        def authenticated
+          if warden.authenticated?
+            return true
+          elsif params[:access_token] and
+              User.find_for_token_authentication("access_token" => params[:access_token])
+            return true
+          elsif params[:xapp_token] and
+              AccessGrant.find_access(params[:xapp_token])
+            return true
+          else
+            error!('401 Unauthorized', 401)
+          end
+        end
+
+        def current_user
+          warden.user || User.find_for_token_authentication("access_token" => params[:access_token])
+        end
+      end
+
+      before { authenticated }
+
       resource :purchase_records do
         desc 'Create a purchase record'
         params do
@@ -28,11 +55,9 @@ module CourseStore
               expiry_date: Time.now + course.validity_period.day
             })
 
-            # render json: { result: 'Purchase record created!' }
-          # else
-            # render json: { result: 'The course is not available!' }
+          else
+            { message: 'The course is not available.', status: 406 }
           end
-
         end
       end
     end

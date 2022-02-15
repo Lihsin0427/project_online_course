@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  course: one
+  topic: MyString
+  price: 9.99
+  currency: MyString
+  category: MyString
+  content: MyText
+  validity_period: 1
+  purchase_date: 2022-02-14
+  expiry_date: 2022-02-14
+
+two:
+  user: two
+  course: two
+  topic: MyString
+  price: 9.99
+  currency: MyString
+  category: MyString
+  content: MyText
+  validity_period: 1
+  purchase_date: 2022-02-14
+  expiry_date: 2022-02-14

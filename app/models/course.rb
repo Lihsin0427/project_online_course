@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   belongs_to :category, :optional => true
+  has_many :purchase_records
 
   # validation
   validates :topic, :content, :category_id, presence: true

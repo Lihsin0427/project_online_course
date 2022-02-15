@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_133811) do
+ActiveRecord::Schema.define(version: 2022_02_15_053209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2022_02_14_133811) do
     t.string "p_currency"
     t.string "p_category"
     t.integer "p_validity_period"
-    t.date "purchase_date"
-    t.date "expiry_date"
+    t.datetime "purchase_date"
+    t.datetime "expiry_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_purchase_records_on_course_id"

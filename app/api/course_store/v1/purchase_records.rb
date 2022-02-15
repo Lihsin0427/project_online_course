@@ -5,8 +5,11 @@ module CourseStore
       format :json
       prefix :api
 
-      helpers do
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        error!(message: e.message, status: 404)
+      end
 
+      helpers do
         def warden
           env['warden']
         end
@@ -39,9 +42,8 @@ module CourseStore
         end
         
         get do
-          course = Course.find_by(url: params[:url])
+          course = Course.find_by!(url: params[:url])
           last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
-
 
           if not last_purchase != nil && Time.now < last_purchase.expiry_date 
             if course.is_available?
@@ -61,6 +63,7 @@ module CourseStore
             else
               { message: 'The course is not available.', status: 406 }
             end
+
           else
             { message: 'You still have this course that has not expired.', status: 406 }
           end

@@ -87,7 +87,7 @@ module CourseStore
           
           a_u = a.uniq
 
-          present a_u
+          present a_u, with: CourseStore::Entities::Course
         end
       end
     end

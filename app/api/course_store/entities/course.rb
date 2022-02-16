@@ -1,8 +1,7 @@
 module CourseStore
   module Entities
-
     class Course < Grape::Entity
-      expose :id
+
       expose :topic
       expose :price
       expose :currency
@@ -12,7 +11,7 @@ module CourseStore
       expose :category, merge: true, using: CourseStore::Entities::Category
       expose :url
       expose :purchase_records, using: CourseStore::Entities::PurchaseRecord
+      
     end
-
   end
 end

@@ -75,16 +75,14 @@ module CourseStore
         desc 'Purchase records of a user'
 
         get do
-          p current_user
-          p current_user.id
-          # purchase_records = PurchaseRecord.where(user_id: current_user.id).includes(:course)
-          purchase_records = current_user.purchase_records.includes(:course)
+
+          purchase_records = current_user.purchase_records.includes(course: :category)
           
           a = []
           purchase_records.each do |p|
             a << p.course
           end
-          
+
           a_u = a.uniq
 
           present a_u, with: CourseStore::Entities::Course

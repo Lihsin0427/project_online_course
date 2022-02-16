@@ -74,43 +74,30 @@ module CourseStore
         desc 'Purchase records of a user'
         params do
           optional :category, type: String
-          optional :is_available?, type: Boolean
+          optional :valid, type: Boolean
         end
 
         get do
-          p '---------------------------------'
-          if params[:category].present?
-            ccc = Category.find_by!(name: params[:category]).id
+
+          if params[:category]
+            cc_id = Category.find_by!(name: params[:category]).id
           end
-          # p ccc
-          p params[:is_available?].present? 
-          # if params[:category].present? && Category.exists?(name: params[:category])
-          
-          p '---------------------------------'
-          # category = Category.find_by(name: params[:category])
          
           purchase_records = current_user.purchase_records.includes(course: :category)
           
-          # if p.course.category.name == params[:category]
-
-          # courses_list = []
-          # purchase_records.each do |p|
-          #   courses_list << p.course
-          # end
-
+        
           courses_list = purchase_records.map{ |x| x.course }
 
-          if params[:category] && params[:is_available?]
-            course_list = courses_list.uniq.select{ |x| x.category_id == ccc && x.is_available? && Time.now < x.purchase_records.last.expiry_date}
+          if params[:category] && params[:valid]
+            course_list = courses_list.uniq.select{ |x| x.category_id == cc_id && Time.now < x.purchase_records.last.expiry_date}
           elsif params[:category]
-            course_list = courses_list.uniq.select{ |x| x.category_id == ccc }
-          elsif params[:is_available?]
-            course_list = courses_list.uniq.select{ |x| x.is_available? && Time.now < x.purchase_records.last.expiry_date }
+            course_list = courses_list.uniq.select{ |x| x.category_id == cc_id }
+          elsif params[:valid]
+            course_list = courses_list.uniq.select{ |x| Time.now < x.purchase_records.last.expiry_date }
           else
             course_list = courses_list.uniq
           end
           
-
           present course_list, with: CourseStore::Entities::Course
         end
 

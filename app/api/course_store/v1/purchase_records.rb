@@ -37,36 +37,57 @@ module CourseStore
 
       resource :purchase_records do
         desc 'Create a purchase record'
-        params do
-          requires :url, type: String
-        end
+        route_param :url do
+        #   requires :url, type: String
+        # end
         
-        get do
-          course = Course.find_by!(url: params[:url])
-          last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
+          get do
+            course = Course.find_by!(url: params[:url])
+            last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
 
-          if not last_purchase != nil && Time.now < last_purchase.expiry_date 
-            if course.is_available?
+            if not last_purchase != nil && Time.now < last_purchase.expiry_date 
+              if course.is_available?
 
-              PurchaseRecord.create!({
-                user_id: current_user.id,
-                course_id: course.id,
-                p_topic: course.topic,
-                p_price: course.price,
-                p_currency: course.currency,
-                p_category:  course.category.name,
-                p_validity_period: course.validity_period,
-                purchase_date: Time.now,
-                expiry_date: Time.now + course.validity_period.day
-              })
+                PurchaseRecord.create!({
+                  user_id: current_user.id,
+                  course_id: course.id,
+                  p_topic: course.topic,
+                  p_price: course.price,
+                  p_currency: course.currency,
+                  p_category:  course.category.name,
+                  p_validity_period: course.validity_period,
+                  purchase_date: Time.now,
+                  expiry_date: Time.now + course.validity_period.day
+                })
+
+              else
+                { message: 'The course is not available.', status: 406 }
+              end
 
             else
-              { message: 'The course is not available.', status: 406 }
+              { message: 'You still have this course that has not expired.', status: 406 }
             end
-
-          else
-            { message: 'You still have this course that has not expired.', status: 406 }
           end
+        end
+      end
+
+      resource :purchase_records do
+        desc 'Purchase records of a user'
+
+        get do
+          p current_user
+          p current_user.id
+          # purchase_records = PurchaseRecord.where(user_id: current_user.id).includes(:course)
+          purchase_records = current_user.purchase_records.includes(:course)
+          
+          a = []
+          purchase_records.each do |p|
+            a << p.course
+          end
+          
+          a_u = a.uniq
+
+          present a_u
         end
       end
     end

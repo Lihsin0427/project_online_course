@@ -1,0 +1,33 @@
+.header_wrap{
+  align-items: center;
+  margin: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  .identity{
+    p{ 
+      margin-bottom: 0;
+      }
+    margin-left: 50px;
+  }
+}
+.message{
+  width: 100%;
+  text-align: center;
+  background-color: #ccc;
+  position: absolute;
+  p{
+    margin-bottom: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
+  .alert {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    }
+  .notice{
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+}

@@ -1,11 +1,11 @@
 <h1>類型列表</h1>
 <% if current_user.try(:admin?) %>
-<%= link_to "新增類型", new_category_path %>
+<%= link_to "新增類型", new_category_path, type: "button", class: "btn btn-outline-success btn-sm" %>
 <% end  %>
 
 <table>
   <tr>
-    <td>類型</td>
+    <td class="list_title">類型</td>
     <% if current_user.try(:admin?) %>
     <td>管理員動作</td>
     <% end  %>

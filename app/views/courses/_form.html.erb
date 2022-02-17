@@ -1,58 +1,58 @@
-<% if @course.errors.any? %>
-  <ul>
-  <% @course.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-  </ul>
-<% end %>
-
 <%= form_for(@course) do |form| %>
 
-  <div class="fields">
-    <%= form.label :topic, '課程主題' %>
+  <div class="mb-2">
+    <%= form.label :topic, '課程主題' %></br>
     <%= form.text_field :topic %>
   </div>
 
-  <div class="fields">
-    <%= form.label :price, '價格' %>
+  <div class="mb-2">
+    <%= form.label :price, '價格' %></br>
     <%= form.number_field :price, min:"0", step: ".01" %>
-    <p>價格取至小數點第二位</p>
+    <p class="small_p">(價格取至小數點第二位)</p>
   </div>
 
-  <div class="fields">
-    <%= form.label :currency, '幣別' %>
+  <div class="mb-2">
+    <%= form.label :currency, '幣別' %></br>
     <%= form.select :currency, Course::CURRENCY.map{|c|[ display_course_currency(c), c] } %>
   </div>
 
-  <div class="fields">
-    <%= form.label :category_id, '類型' %>
+  <div class="mb-2">
+    <%= form.label :category_id, '類型' %></br>
     <%= form.select :category_id, Category.all.map{ |c| [c.name, c.id] }, include_blank: true %>
     <%= link_to "編輯類型", categories_path %>
   </div>
 
-  <div class="fields">
-    <%= form.label :url, '設定網址' %>
+  <div class="mb-2">
+    <%= form.label :url, '設定網址' %></br>
     <%= form.text_field :url %>
-    <p>限小寫英數字及橫線，將作為網址的一部分</p>
+    <p class="small_p">(限小寫英數字及橫線，將作為網址的一部分)</p>
   </div>
   
 
-  <div class="fields">
-    <%= form.label :content, '課程描述' %>
+  <div class="mb-2">
+    <%= form.label :content, '課程描述' %></br>
     <%= form.text_area :content %>
   </div>
 
-  <div class="fields">
-    <%= form.label :validity_period, '課程效期(天)' %>
+  <div class="mb-2">
+    <%= form.label :validity_period, '課程效期' %></br>
     <%= form.select :validity_period, [*1..31], include_blank: true %>
   </div>
 
-  <div class="fields">
-    <%= form.label :is_available, '是否上架' %>
+  <div class="mb-2">
+    <%= form.label :is_available, '是否上架' %></br>
     <%= form.select :is_available, [['上架', true], ['未上架', false]] %>
   </div>
 
-  <div class="actions">
-    <%= form.submit  btn_label %>
+  <div class="mb-3">
+    <%= form.submit  btn_label, class: "btn btn-success btn-sm" %>
   </div>
+<% end %>
+
+<% if @course.errors.any? %>
+  <ul class="mb-3">
+  <% @course.errors.full_messages.each do |msg| %>
+    <li class="msg"><%= msg %></li>
+  <% end %>
+  </ul>
 <% end %>

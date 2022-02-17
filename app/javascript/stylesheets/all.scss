@@ -1,0 +1,26 @@
+body{
+  a{
+    color: rgb(43, 121, 36);
+    padding: 2px;   
+    text-decoration: none; 
+    margin: 2px;
+  }
+  a:hover{
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(255, 153, 0);
+  }
+}
+footer{
+  width: 100vw;
+  height: 28px;
+  position: fixed;
+  bottom: 0;
+
+  text-align: center;
+  line-height: 28px;
+  background-color: rgb(162, 194, 153)
+}
+.container{
+  margin-top: 50px;
+}

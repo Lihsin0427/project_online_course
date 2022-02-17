@@ -1,13 +1,28 @@
-<% if current_user.try(:admin?) %>
-  <p>管理員模式</p>
-<% end  %>
+<nav class="navbar navbar-light" style="background-color: rgb(162, 194, 153);">
+  <div class="header_wrap">
+    <div>
+      <% if user_signed_in? %>
+        <%= link_to '登出', destroy_user_session_path, method: 'delete' %> | 
+        <%= link_to '修改密碼', edit_user_registration_path %> | 
+      <% else %>
+        <%= link_to '登入', new_user_session_path %> |
+        <%= link_to '註冊', new_user_registration_path %> | 
+      <% end %>
 
-<% if user_signed_in? %>
-  <%= link_to '登出', destroy_user_session_path, method: 'delete' %> | 
-  <%= link_to '修改密碼', edit_user_registration_path %>
-<% else %>
-  <%= link_to '登入', new_user_session_path %> |
-  <%= link_to '註冊', new_user_registration_path %>
-<% end %>
+      <%= link_to '首頁', root_path %>
+    </div>
 
-| <%= link_to '首頁', root_path %>
+    <div class="identity">
+      <% if user_signed_in? %>
+        <% if current_user.try(:admin?) %>
+          <p>管理員身份</p>
+        <% else %>
+          <p>一般使用者</p>
+        <% end  %>
+      <% end  %>
+    </div>
+  </div>
+</nav>
+<div class="message">
+  <%= render 'shared/flash_message' if notice||alert %>
+</div>

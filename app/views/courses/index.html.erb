@@ -1,19 +1,18 @@
 <h1>課程列表</h1>
 <% if current_user.try(:admin?) %>
-<%= link_to "新增課程", new_course_path %>
+<%= link_to "新增課程", new_course_path, type: "button", class: "btn btn-outline-success btn-sm" %>
 <% end  %>
 
+
 <table>
-<tr>
+<tr class="list_title">
   <td>課程主題</td>
-  <td>課程價格</td>
+  <td>價格</td>
   <td>幣別</td>
   <td><%= link_to "課程類型", categories_path %></td>
-  <td>課程效期</td>
-  <td>上架中</td>
-  <% if current_user.try(:admin?) %>
-    <td>管理員動作</td>
-  <% end  %>
+  <td>效期</td>
+  <td>是否上架</td>
+
 </tr>
 <% @courses.each do |course| %>
 <tr>

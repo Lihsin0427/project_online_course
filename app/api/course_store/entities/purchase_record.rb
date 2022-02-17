@@ -6,9 +6,9 @@ module CourseStore
         time.to_s(:db) 
       end
 
-      expose :p_price
-      expose :p_currency
-      expose :p_validity_period
+      expose :p_price, as: :purchase_price
+      expose :p_currency, as: :purchase_currency
+      expose :p_validity_period, as: :purchase_validity_period
 
       with_options(format_with: :datetime) do
         expose :purchase_date

@@ -15,21 +15,13 @@ module CourseStore
         end
 
         def authenticated
-          if warden.authenticated?
-            return true
-          elsif params[:access_token] and
-              User.find_for_token_authentication("access_token" => params[:access_token])
-            return true
-          elsif params[:xapp_token] and
-              AccessGrant.find_access(params[:xapp_token])
-            return true
-          else
+         unless warden.authenticated?
             error!('401 Unauthorized', 401)
           end
         end
 
         def current_user
-          warden.user || User.find_for_token_authentication("access_token" => params[:access_token])
+          warden.user
         end
       end
 
@@ -41,7 +33,7 @@ module CourseStore
         # params do
         #   requires :url, type: String
         # end      
-          get do
+          post do
             course = Course.find_by!(url: params[:url])
             last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
 

@@ -1,13 +1,21 @@
+<% if @course.errors.any? %>
+  <ul class="mb-3">
+  <% @course.errors.full_messages.each do |msg| %>
+    <li class="msg"><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <%= form_for(@course) do |form| %>
 
   <div class="mb-2">
     <%= form.label :topic, '課程主題' %></br>
-    <%= form.text_field :topic %>
+    <%= form.text_field :topic, class: "form-control form-control-sm" %>
   </div>
 
   <div class="mb-2">
     <%= form.label :price, '價格' %></br>
-    <%= form.number_field :price, min:"0", step: ".01" %>
+    <%= form.number_field :price, min:"0", step: ".01", class: "form-control form-control-sm" %>
     <p class="small_p">(價格取至小數點第二位)</p>
   </div>
 
@@ -22,20 +30,24 @@
     <%= link_to "編輯類型", categories_path %>
   </div>
 
-  <div class="mb-2">
-    <%= form.label :url, '設定網址' %></br>
-    <%= form.text_field :url %>
-    <p class="small_p">(限小寫英數字及橫線，將作為網址的一部分)</p>
+  <div>
+    <%= form.label :url, '設定網址' %>
+    <div class="input-group input-group-sm">
+      <span class="input-group-text" id="basic-addon1">http://hidden-reef-83151.herokuapp.com/courses/</span>
+      <%= form.text_field :url, class: "form-control",placeholder: "輸入網址" %>
+    </div>
+    
+    <p class="small_p">(限小寫英數字及橫線)</p>
   </div>
   
 
   <div class="mb-2">
     <%= form.label :content, '課程描述' %></br>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, class: "form-control form-control-sm" %>
   </div>
 
   <div class="mb-2">
-    <%= form.label :validity_period, '課程效期' %></br>
+    <%= form.label :validity_period, '課程效期(天)' %></br>
     <%= form.select :validity_period, [*1..31], include_blank: true %>
   </div>
 
@@ -47,12 +59,4 @@
   <div class="mb-3">
     <%= form.submit  btn_label, class: "btn btn-success btn-sm" %>
   </div>
-<% end %>
-
-<% if @course.errors.any? %>
-  <ul class="mb-3">
-  <% @course.errors.full_messages.each do |msg| %>
-    <li class="msg"><%= msg %></li>
-  <% end %>
-  </ul>
 <% end %>

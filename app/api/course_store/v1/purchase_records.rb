@@ -29,36 +29,35 @@ module CourseStore
 
       resource :purchase_records do
         desc 'Create a purchase record'
-        route_param :url do
-        # params do
-        #   requires :url, type: String
-        # end      
-          post do
-            course = Course.find_by!(url: params[:url])
-            last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
+        params do
+          requires :url, type: String
+        end
 
-            if not last_purchase != nil && Time.now < last_purchase.expiry_date 
-              if course.is_available?
+        post do
+          course = Course.find_by!(url: params[:url])
+          last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
 
-                PurchaseRecord.create!({
-                  user_id: current_user.id,
-                  course_id: course.id,
-                  p_topic: course.topic,
-                  p_price: course.price,
-                  p_currency: course.currency,
-                  p_category:  course.category.name,
-                  p_validity_period: course.validity_period,
-                  purchase_date: Time.now,
-                  expiry_date: Time.now + course.validity_period.day
-                })
+          if not last_purchase != nil && Time.now < last_purchase.expiry_date 
+            if course.is_available?
 
-              else
-                { message: 'The course is not available.', status: 406 }
-              end
+              PurchaseRecord.create!({
+                user_id: current_user.id,
+                course_id: course.id,
+                p_topic: course.topic,
+                p_price: course.price,
+                p_currency: course.currency,
+                p_category:  course.category.name,
+                p_validity_period: course.validity_period,
+                purchase_date: Time.now,
+                expiry_date: Time.now + course.validity_period.day
+              })
 
             else
-              { message: 'You still have this course that has not expired.', status: 406 }
+              { message: 'The course is not available.', status: 406 }
             end
+
+          else
+            { message: 'You still have this course that has not expired.', status: 406 }
           end
         end
 

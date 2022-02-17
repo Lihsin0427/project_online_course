@@ -15,21 +15,13 @@ module CourseStore
         end
 
         def authenticated
-          if warden.authenticated?
-            return true
-          elsif params[:access_token] and
-              User.find_for_token_authentication("access_token" => params[:access_token])
-            return true
-          elsif params[:xapp_token] and
-              AccessGrant.find_access(params[:xapp_token])
-            return true
-          else
+         unless warden.authenticated?
             error!('401 Unauthorized', 401)
           end
         end
 
         def current_user
-          warden.user || User.find_for_token_authentication("access_token" => params[:access_token])
+          warden.user
         end
       end
 
@@ -40,8 +32,8 @@ module CourseStore
         params do
           requires :url, type: String
         end
-        
-        get do
+
+        post do
           course = Course.find_by!(url: params[:url])
           last_purchase = PurchaseRecord.where(user_id: current_user.id, course_id: course.id ).last
 
@@ -68,6 +60,38 @@ module CourseStore
             { message: 'You still have this course that has not expired.', status: 406 }
           end
         end
+
+
+        desc 'Purchase records of a user'
+        params do
+          optional :category, type: String
+          optional :valid, type: Boolean
+        end
+
+        get do
+
+          if params[:category]
+            cc_id = Category.find_by!(name: params[:category]).id
+          end
+         
+          purchase_records = current_user.purchase_records.includes(course: :category)
+          
+        
+          courses_list = purchase_records.map{ |x| x.course }
+
+          if params[:category] && params[:valid]
+            course_list = courses_list.uniq.select{ |x| x.category_id == cc_id && Time.now < x.purchase_records.last.expiry_date}
+          elsif params[:category]
+            course_list = courses_list.uniq.select{ |x| x.category_id == cc_id }
+          elsif params[:valid]
+            course_list = courses_list.uniq.select{ |x| Time.now < x.purchase_records.last.expiry_date }
+          else
+            course_list = courses_list.uniq
+          end
+          
+          present course_list, with: CourseStore::Entities::Course
+        end
+
       end
     end
   end

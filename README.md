@@ -43,7 +43,7 @@ Rails 6.1.4<br>
 
 內容說明
 ----
-### 一. 課程操作及使用者權限
+### 一. 課程操作及使用者權限 (第1題）
 
 - 使用 Devise gem 製作會員系統<br> 
 - 以欄位 admin 來記錄是否為管理員身份<br> 
@@ -67,7 +67,7 @@ Rails 6.1.4<br>
 https://hidden-reef-83151.herokuapp.com/427liHsinPractice
 
 
-### 二. 後端 API
+### 二. 後端 API (第2,3題的API,未做前端）
 
 <img width="858" alt="截圖 2022-02-17 下午3 11 47" src="https://user-images.githubusercontent.com/92938134/154646552-74eaa727-76f3-4595-8df3-4f645ef75824.png">
 
